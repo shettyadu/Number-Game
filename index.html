@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Number Game</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body style="margin-top:120px">
+
+	<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #053868  ">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" style="color: white">Number Game</a>
+
+    </div> 
+    <ul class="nav navbar-nav navbar-right">
+
+        <li ><a href="#" style="color: white">Adarsh Shetty</a></li>
+        <li><a href="https://github.com/shettyadu" style="color: white" target="_blank">GitHub</a></li>
+    </ul>
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+ 
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-4">
+			<div class="list-group">
+  <h4 class="list-group-item active">
+    Game Rules
+  </h4>
+  <p class="list-group-item">1. You have 1000 INR when you start the game</p>
+ <p class="list-group-item">2. Every try(click on start) is charged 100 INR</p>
+  <p class="list-group-item">3. Game is over if you have less than 100 INR</p>
+<p class="list-group-item">4. If all the numbers are odd/even (eg. 2 4 6), you get 300 INR</p>
+ <p class="list-group-item">5. If the numbers are in sequence with difference of 1 in any order (eg. 2 3 4 or 3 2 4 or 4 6 5), you get 800 INR</p>
+  <p class="list-group-item">6. If all the numbers are same (eg. 4 4 4), you get 1000 INR</p>
+  <p class="list-group-item">7. Else you get no money</p>
+</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Number Game</h3>
+                </div>
+                <div class="panel-body">
+                	<center>
+                		<h3 id="money">You have 1000 INR</h3>
+                    <input type="number" id="num" value="1000" hidden>
+                    <button type="button" class="btn btn-primary" onclick="startGame();" id="but">Start Game</button>
+                     </br>
+                    <h3 id="over"></h3>
+                    <h4 id="numbers"></h4>
+                    <h4 id="lucky"></h4>
+                	</center>
+                    
+                </div>
+                <div class="panel-footer clearfix">
+                	<button type="button" class="btn btn-info pull-right" onclick="restart();">Restart</button>
+                </div>
+            </div>
+		</div>
+	</div>	
+	</div>
+</body>
+<script>
+function restart(){
+	location.reload();
+}
+function startGame(){
+	var num = document.getElementById('num').value;
+	var number = num-100;	
+	document.getElementById('num').value = number; 
+    var num1 = Math.floor(Math.random() * 10);
+    var num2 = Math.floor(Math.random() * 10);
+    var num3 = Math.floor(Math.random() * 10);
+    document.getElementById('numbers').innerHTML=num1+" " + num2 + " " +num3;
+    document.getElementById('lucky').setAttribute('class','alert alert-danger');
+    document.getElementById('lucky').innerHTML = "You are not lucky this time"; 
+
+     console.log(num1,num2,num3);
+    if(number===100){
+    	var button = document.getElementById('but');
+        button.parentNode.removeChild(button);
+    	document.getElementById('money').innerHTML ="You have " + number+ " INR";
+    	document.getElementById('over').setAttribute('style','color:red')
+        document.getElementById('over').innerHTML = "Game Over!";
+        document.getElementById('lucky').setAttribute('class','alert alert-danger');
+        document.getElementById('lucky').innerHTML = "You are not lucky this time"
+         
+    }
+    else{
+    	if((checkEven(num1)===1) && (checkEven(num2)===1) && (checkEven(num3)===1)){
+    	    number = number + 300;
+    	document.getElementById('num').value = number;
+    	document.getElementById('money').innerHTML = "You have " + number+ " INR";
+    	document.getElementById('lucky').setAttribute('class','alert alert-success');
+    	document.getElementById('lucky').innerHTML = "You won 300 INR as numbers are even";
+    	console.log("Number : " + number);
+        }
+        if((checkEven(num1)===0) && (checkEven(num2)===0) && (checkEven(num3)===0)){
+        number = number + 300;
+    	document.getElementById('num').value = number;
+    	document.getElementById('money').innerHTML = "You have " + number+ " INR";
+    	document.getElementById('lucky').setAttribute('class','alert alert-success');
+    	document.getElementById('lucky').innerHTML = "You won 300 INR as numbers are odd";
+    	console.log("Number : " + number);
+        }
+        if(num1===num2===num3){
+    	number = number + 1000;
+    	document.getElementById('num').value = number;
+    	document.getElementById('money').innerHTML = "You have " + number+ " INR";
+    	console.log("Number : " + number);
+    	document.getElementById('lucky').setAttribute('class','alert alert-success');
+    	document.getElementById('lucky').innerHTML = "You won 1000 INR as numbers are equals";
+        }
+        if((num1!==num2) && (num2!==num3) && (num3!==num1)){
+    	    if(((num1-num2)===1 || (num1-num2)===-1) && ((num2-num3)===1 || (num2-num3)===-1) && ((num2-num3)===1 || (num2-num3)===-1) ){
+            number = number + 800;
+            document.getElementById('num').value = number;
+            document.getElementById('money').innerHTML = "You have " + number+ " INR";
+            document.getElementById('lucky').setAttribute('class','alert alert-success');
+            document.getElementById('lucky').innerHTML = "You won 800 INR as numbers are in sequence";
+            console.log("Number : " + number);
+            }
+        }
+        document.getElementById('money').innerHTML = "You have " + number+ " INR";
+      
+    }
+    
+    function checkEven(num1){
+         if(num1%2===0){
+         	return 1;
+         }
+         else{
+         	return 0;
+         }
+    }
+}
+</script>
+</html>
