@@ -28,5 +28,5 @@
   6) Then, check the box next to ‘default.php’, then click the ‘Delete’ button.This will allow your site to show up correctly 
   7) Now, click upload and choose all the files your site needs to function properly (This includes the '.html’s and images you used when       making it) 
     
- * [HostLing](https://adarshshetty723.000webhostapp.com/) - The web framework used 
+ * [NUMBER GAME](https://adarshshetty723.000webhostapp.com/) - Host link 
  
