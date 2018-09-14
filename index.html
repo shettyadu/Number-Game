@@ -22,7 +22,7 @@
     <ul class="nav navbar-nav navbar-right">
 
         <li ><a href="#" style="color: white">Adarsh Shetty</a></li>
-        <li><a href="https://github.com/shettyadu" style="color: white" target="_blank">GitHub</a></li>
+        <li><a href="https://github.com/shettyadu/Number-Game" style="color: white" target="_blank">GitHub</a></li>
     </ul>
   </div><!-- /.container-fluid -->
 </nav>
@@ -71,16 +71,24 @@
 	</div>
 </body>
 <script>
+    console.log("Start Game 1000 INR");
+
 function restart(){
 	location.reload();
 }
+
 function startGame(){
-	var num = document.getElementById('num').value;
+    var num = document.getElementById('num').value;
 	var number = num-100;	
 	document.getElementById('num').value = number; 
-    var num1 = Math.floor(Math.random() * 10);
+   var num1 = Math.floor(Math.random() * 10);
     var num2 = Math.floor(Math.random() * 10);
     var num3 = Math.floor(Math.random() * 10);
+
+   // var num1 = 4;
+   // var num2 = 4;
+   // var num3 = 4;
+       
     document.getElementById('numbers').innerHTML=num1+" " + num2 + " " +num3;
     document.getElementById('lucky').setAttribute('class','alert alert-danger');
     document.getElementById('lucky').innerHTML = "You are not lucky this time"; 
@@ -93,50 +101,58 @@ function startGame(){
     	document.getElementById('over').setAttribute('style','color:red')
         document.getElementById('over').innerHTML = "Game Over!";
         document.getElementById('lucky').setAttribute('class','alert alert-danger');
-        document.getElementById('lucky').innerHTML = "You are not lucky this time"
+        document.getElementById('lucky').innerHTML = "Click on Restart button to start the Game"
+        console.log("Game Over");
          
     }
     else{
-    	if((checkEven(num1)===1) && (checkEven(num2)===1) && (checkEven(num3)===1)){
-    	    number = number + 300;
-    	document.getElementById('num').value = number;
-    	document.getElementById('money').innerHTML = "You have " + number+ " INR";
-    	document.getElementById('lucky').setAttribute('class','alert alert-success');
-    	document.getElementById('lucky').innerHTML = "You won 300 INR as numbers are even";
-    	console.log("Number : " + number);
+
+        if(num1==num2 && num2==num3){
+        number = number + 1000;
+        document.getElementById('num').value = number;
+        document.getElementById('money').innerHTML = "You have " + number+ " INR";
+        document.getElementById('lucky').setAttribute('class','alert alert-success');
+        document.getElementById('lucky').innerHTML = "You won 1000 INR as numbers are equals";
+        console.log("Number: "+ number +" Equal");
+        return 0;
         }
+         if((checkEven(num1)===1) && (checkEven(num2)===1) && (checkEven(num3)===1)){
+            number = number + 300;
+        document.getElementById('num').value = number;
+        document.getElementById('money').innerHTML = "You have " + number+ " INR";
+        document.getElementById('lucky').setAttribute('class','alert alert-success');
+        document.getElementById('lucky').innerHTML = "You won 300 INR as numbers are even";
+        console.log("Number : " + number +" Even");
+        }
+
+        if((num1!==num2) && (num2!==num3) && (num3!==num1)){
+            if( (((num2-num1)===1)&&((num3-num2)===1))||(((num1-num2)===1)&&((num3-num1)===1))||(((num3-num1)===1)&&((num2-num3)===1))){
+            number = number + 800;
+            document.getElementById('num').value = number;
+            document.getElementById('money').innerHTML = "You have " + number+ " INR";
+            document.getElementById('lucky').setAttribute('class','alert alert-success');
+            document.getElementById('lucky').innerHTML = "You won 800 INR as numbers are in sequence";
+            console.log("Number : " + number +" Sequence");
+            }
+        }
+    	
         if((checkEven(num1)===0) && (checkEven(num2)===0) && (checkEven(num3)===0)){
         number = number + 300;
     	document.getElementById('num').value = number;
     	document.getElementById('money').innerHTML = "You have " + number+ " INR";
     	document.getElementById('lucky').setAttribute('class','alert alert-success');
     	document.getElementById('lucky').innerHTML = "You won 300 INR as numbers are odd";
-    	console.log("Number : " + number);
+    	console.log("Number : " + number +" Odd");
+        
         }
-        if(num1===num2===num3){
-    	number = number + 1000;
-    	document.getElementById('num').value = number;
-    	document.getElementById('money').innerHTML = "You have " + number+ " INR";
-    	console.log("Number : " + number);
-    	document.getElementById('lucky').setAttribute('class','alert alert-success');
-    	document.getElementById('lucky').innerHTML = "You won 1000 INR as numbers are equals";
-        }
-        if((num1!==num2) && (num2!==num3) && (num3!==num1)){
-    	    if(((num1-num2)===1 || (num1-num2)===-1) && ((num2-num3)===1 || (num2-num3)===-1) && ((num2-num3)===1 || (num2-num3)===-1) ){
-            number = number + 800;
-            document.getElementById('num').value = number;
-            document.getElementById('money').innerHTML = "You have " + number+ " INR";
-            document.getElementById('lucky').setAttribute('class','alert alert-success');
-            document.getElementById('lucky').innerHTML = "You won 800 INR as numbers are in sequence";
-            console.log("Number : " + number);
-            }
-        }
+         
+        
         document.getElementById('money').innerHTML = "You have " + number+ " INR";
       
     }
     
-    function checkEven(num1){
-         if(num1%2===0){
+    function checkEven(num){
+         if(num%2===0){
          	return 1;
          }
          else{
